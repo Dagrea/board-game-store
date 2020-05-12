@@ -1,24 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="header">
+        <div className="header-menu">Каталог</div>
+        <div className="header-menu">Sign in</div>
+      </div>
+      <div className="content flex-container">
+        <div className="box-product"></div>
+        <div className="box-product"></div>
+        <div className="box-product"></div>
+        <div className="box-product"></div>
+        <div className="box-product"></div>
+        <div className="box-product"></div>
+        <div className="box-product"></div>
+        <div className="box-product"></div>
+        <div className="box-product"></div>
+        <div className="box-product"></div>
+      </div>
+      <div className="footer">
+        <div className="column">
+          <ul>
+            <li>О нас</li>
+            <li>Контакты</li>
+            <li>Отзывы</li>
+          </ul>
+        </div>
+        <div className="column">
+          <ul>
+            <li>Доставка</li>
+            <li>Оплата</li>
+            <li>FAQ</li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
