@@ -1,43 +1,40 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {setGames} from './actions/games';
+import axios from 'axios';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <div className="header">
-        <div className="header-menu">Каталог</div>
-        <div className="header-menu">Sign in</div>
-      </div>
-      <div className="content flex-container">
-        <div className="box-product"></div>
-        <div className="box-product"></div>
-        <div className="box-product"></div>
-        <div className="box-product"></div>
-        <div className="box-product"></div>
-        <div className="box-product"></div>
-        <div className="box-product"></div>
-        <div className="box-product"></div>
-        <div className="box-product"></div>
-        <div className="box-product"></div>
-      </div>
-      <div className="footer">
-        <div className="column">
-          <ul>
-            <li>О нас</li>
-            <li>Контакты</li>
-            <li>Отзывы</li>
-          </ul>
-        </div>
-        <div className="column">
-          <ul>
-            <li>Доставка</li>
-            <li>Оплата</li>
-            <li>FAQ</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+class App extends React.Component {
+	componentWillMount() {
+		const {setGames} = this.props;
+		axios.get('/games.json').then(({data}) => {
+			setGames(data);
+		});
+	}
+
+	render () {  	
+  	const {games} = this.props;
+    return (
+		<div>
+			<ul>
+				{
+					!games ? '...Загрузка' :
+					games.map(game => (
+						<li>{game.title}</li>
+					))
+				}
+			</ul>
+		</div>
+      )
+  }
 }
 
-export default App;
+const mapStateToProps = ({games}) => ({
+	games: games.items,
+});
+
+const mapDispatchToProps = dispatch => ({
+	setGames: games => dispatch(setGames(games)),
+})
+
+export default  connect(mapStateToProps,mapDispatchToProps)(App);
