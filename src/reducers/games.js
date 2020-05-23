@@ -16,7 +16,6 @@ export default (state = initialState,action) => {
 				...state,
 				loaded: action.payload,
 			};
-			break;
 		default :
 			return state;
 	}

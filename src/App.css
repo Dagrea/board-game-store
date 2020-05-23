@@ -1,0 +1,13 @@
+.container
+{
+    width: 80%;
+    margin-top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.section {
+	height: 300px;
+}
+.inline {
+	display: inline-block;
+}

@@ -1,29 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-
-import './index.css';
-import App from './App';
 import createStore from './store';
-const store = createStore();
+import App from './containers/App';
+import GamePage from './components/GamePage';
+import 'semantic-ui-css/semantic.min.css';
+//import './index.css';
 
-setTimeout(function() {
-	store.dispatch({
-		type: 'SET_BOOKS',
-		payload: [
-			{
-				id: 0,
-				title:'Yep'
-			}
-		]
-	})
-})
+const store = createStore();
 
 ReactDOM.render(
 	<Provider store={store}>
-		<App />
+		<GamePage />
 	</Provider>,
   document.getElementById('root')
-  );
+);
 
 

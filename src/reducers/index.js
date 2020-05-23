@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
 
 import games from './games';
-import card from './card';
+import cart from './cart';
 import filter from './filter';
 
 export default combineReducers({
 		games,
-		card,
+		cart,
 		filter,
 	});
