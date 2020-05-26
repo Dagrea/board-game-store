@@ -1,13 +1,85 @@
-.container
+.myHead{
+	font-weight:bold;
+	font-size: 32px;
+	margin:40px;
+}
+.myContainer
 {
     width: 80%;
+    max-width: 1024px;
     margin-top: 40px;
     margin-right: auto;
     margin-left: auto;
+    min-height: 950px;
 }
-.section {
+.myFluid {
+	width: 100%;
+}
+.my80prc {
+	
+}
+.myCenterChild {
+	align-self: center;
+}
+.mySection {
 	height: 300px;
 }
-.inline {
-	display: inline-block;
+.mymrgbtm {
+	margin-bottom: 40px;
+}
+.mymrgCenter {
+	margin-left: auto;
+	margin-right: auto;
+}
+.mypd40 {
+	padding: 40px;
+	clear: both;
+}
+.myInline {
+	display: inline-flex;
+}
+.myLeft, .myRight {
+	width: 49%;
+}
+.myLeft {
+	float: left;
+}
+.myRight {
+	float: right;
+}
+.ui.button {
+	max-width: 400px;
+}
+.myCenter {
+	display: inline-flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	text-align: justify;
+}
+.myCenter  {
+}
+p  {
+	margin-bottom:10px !important;
+}
+
+.myFlex{
+	display: flex;
+}
+.myBlock {
+	display: block;
+}
+.myVCenter{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.myDescription{
+	margin-bottom: 0 auto;
+}
+.ui.stackable.inverted.divided.grid {
+	flex-wrap: nowrap;
+	justify-content: center;
+}
+.ui.inverted.vertical.footer.segment {
+	margin-top: 40px;
 }

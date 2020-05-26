@@ -2,7 +2,7 @@ import React from 'react'
 import { Input, Menu, } from 'semantic-ui-react'
 
 const Filter = ({setFilter, filterBy, searchQuery, setSearchQuery}) => (
-    <Menu secondary>
+    <Menu stackable secondary>
         <Menu.Item
           name='all'
           active={filterBy === 'all'}

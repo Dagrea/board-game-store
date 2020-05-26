@@ -1,42 +1,56 @@
 import React from 'react'
 import axios from 'axios';
-import {Image} from 'semantic-ui-react';
+import {Image, Button, Icon} from 'semantic-ui-react';
 import Menu from '../containers/Menu';
+import Footer from '../components/Footer.jsx';
+import placeholder from '../images/dices.png';
 
 import '../App.css';
 
 class GamePage extends React.Component {
-	/*componentWillMount() {
-		const {setGames} = this.props;
-		axios.get('/request.php').then(({data}) => {
-			console.log(data);
-			this.state = {...data};
+	constructor(props) {
+    super(props)
+    this.state = {
+      image:placeholder,
+      price: 0,
+      name: 'The Game',
+      description: "",
+      instruction: ""
+    }
+  }
+	UNSAFE_componentWillMount() {
+		axios.get('http://localhost:3001?id='+this.props.match.params.gameId).then(({data}) => {
+    	this.setState({...data});
 		});
-	}*/
+	}
 
-	render () {  	
-  	//const {image, price, name, title, extendedTitle} = this.state;
+	render () {
     return (
-		<div>
-			<Menu/>
-			<div className='container'>
-			<div className='section'>
-				<Image  floated='left' src='https://react.semantic-ui.com/images/wireframe/image.png' size='medium' />
-				<div className='inline'>Доставим за 1 день
-- Стоимость 300 руб.
-- Бесплатно от 3500 руб
-				<button>Купить</button>
+		<div> 
+			<div className='myContainer'>
+				<div className='myHead myCenter myFlex'>{this.state.name}</div>
+				<div className='mySection myVCenter mymrgbtm '>
+					<div className='myLeft myCenter'>
+						<Image src={this.state.image} alt="GameImage" size='medium' />
+					</div>
+					<div className='myRight myCenter'>
+						<div className='myCenter myFluid'><div className='mymrgbtm myBlock'>Цена одного набора: {this.state.price} UAH</div></div>
+						<Button fluid color='green' size='large' animated='fade'>
+					   		<Button.Content visible> <Icon name='shop' /></Button.Content>
+					    	<Button.Content hidden>В корзину</Button.Content>
+					    </Button>
+					</div>
 				</div>
+				<div className='myFlex myCenter'>
+					<div className='myCenter my80prc'>
+						<h2>Описание</h2>
+						<div dangerouslySetInnerHTML={{__html:this.state.description}}></div>
+					</div>
+					<div className='myCenter my80prc'>
+						<h2>Инструкция</h2>
+						<div dangerouslySetInnerHTML={{__html: this.state.instruction}}></div>
+					</div>
 				</div>
-				<div>Машины 50-х: громкие, массивные, прожорливые… и совершенно прекрасные! Середина прошлого века стала золотой эрой автомобилестроения, подарив нам невероятный дизайн «американской мечты» – и теперь эта мечта может занять достойное место на Вашем столе.
-
-«Кабриолет мечты» от UGEARS – это миниатюрная копия легендарных автомобилей из 50-х, он выглядит так же круто, как знаменитый «мамин кадиллак» Элвиса Пресли. И едет не хуже: передние колёса поворачиваются, а полноценные амортизаторы непринуждённо отрабатывают неровности «дороги».
-
-Стремясь к максимальной реалистичности, дизайнеры UGEARS добились невероятного уровня проработки: стеклоподъёмники, функциональные дворники – всё, что должно работать, честно работает! Багажник, кстати, открывается, а внутри лежит обязательный «джентльменский набор»: домкрат и набор инструментов.
-
-Можно заглянуть и под капот – туда, где скрывается полноценный 8-цилиндровый двигатель, пусть и более экономичный, чем в оригинале. Расход – всего одна резинка на 100 км: этот кабриолет доступен каждому!
-
-Ну и в заключение, пара слов о материалах. Всё сделано из качественной фанеры – той же самой, которая применяется в Европе для изготовления детской мебели. Все 735 деталей вырезаны лазером: толщина линии разреза такая же, как у человеческого волоса. Это значит, что качество сборки у модели настолько же высокое, как у настоящих люкс-кабриолетов. Вам не нужны ни клей, ни инструменты: просто откройте коробку, включите ретро-радио – и вперёд, к мечте!</div>
 			</div>
 		</div>
       )

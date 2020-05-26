@@ -16,24 +16,24 @@ const CartComponent = ({ title, id, image, removeFromCart }) => (
 );
 
 const ExportMenu = ({totalPrice, count, items}) => (
-	<Menu>
+	<Menu size='huge'>
 		<Menu.Item  name='browse'>Магазин игр</Menu.Item>
 		<Menu.Item  name='submit'>О нас </Menu.Item>
 		<Menu.Menu position='right'>
-		    <Menu.Item name='help'>Техподдержка</Menu.Item>
-		    <Popup
-        		trigger={
-		        	<Menu.Item name="cart">
-		        		Корзина (<b>{count}</b>)
-		        	</Menu.Item>
-				}
-				header=<div>Итого: {totalPrice}</div>
-		        content={items.map((game,key) => (
-		          <CartComponent key={key} {...game} />
-		        ))
-		    	}
-		        on="click" hideOnScroll
-     		/>
+		<Menu.Item name='help'>Техподдержка</Menu.Item>
+		<Popup
+    		trigger={
+		    	<Menu.Item name="cart">
+		    		Корзина (<b>{count}</b>)
+	        	</Menu.Item>
+			}
+			header=<div>Итого: {totalPrice}</div>
+	        content={items.map((game,key) => (
+		        <CartComponent key={key} {...game} />
+		    ))
+			}
+	        on="click" hideOnScroll
+     	/>
 		</Menu.Menu>
 	</Menu>
 	)

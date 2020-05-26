@@ -4,6 +4,7 @@ import {Card} from 'semantic-ui-react';
 import Menu from '../containers/Menu';
 import Filter from '../containers/Filter';
 import GameCard from '../containers/GameCard';
+import Footer from '../components/Footer.jsx';
 
 
 import '../App.css';
@@ -20,7 +21,7 @@ class App extends React.Component {
   	const {games, loaded} = this.props;
     return (
 		<div>
-			<Menu/>
+			<div className='myContainer'>
 			<Filter/>
 			<div className='container'>
 			<Card.Group itemsPerRow={4}>
@@ -31,6 +32,7 @@ class App extends React.Component {
 					))
 				}
 			</Card.Group>
+			</div>
 			</div>
 		</div>
       )
