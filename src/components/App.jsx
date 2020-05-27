@@ -6,9 +6,6 @@ import Filter from '../containers/Filter';
 import GameCard from '../containers/GameCard';
 import Footer from '../components/Footer.jsx';
 
-
-import '../App.css';
-
 class App extends React.Component {
 	componentWillMount() {
 		const {setGames} = this.props;

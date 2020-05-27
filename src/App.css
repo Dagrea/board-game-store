@@ -1,19 +1,26 @@
+@media screen and (max-width:620px) {
+   .ui.cards {font-size: calc(10px + (18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));}
+   .ui.button {font-size: calc(10px + (18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));}
+}
 .myHead{
 	font-weight:bold;
 	font-size: 32px;
 	margin:40px;
 }
+img {
+	max-width: 100%;
+}
 .myContainer
 {
     width: 80%;
     max-width: 1024px;
-    margin-top: 40px;
+    margin-top: 60px;
     margin-right: auto;
     margin-left: auto;
     min-height: 950px;
 }
 .myFluid {
-	width: 100%;
+	max-width: 100%;
 }
 .my80prc {
 	

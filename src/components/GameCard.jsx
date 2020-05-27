@@ -3,12 +3,12 @@ import {Card, Icon, Image, Button} from 'semantic-ui-react';
 import placeholder from '../images/dices.png';
 import { Link } from 'react-router-dom';
 const GameCard = game => {
-  const {image, author, title, price, addToCart} = game;
+  const {id, image, author, title, price, addToCart} = game;
   return (
   <Card>
-    <Image src={placeholder} wrapped ui={false} />
+    <Link to={`/game/${id}`}><Image src={placeholder} wrapped ui={false} /></Link>
     <Card.Content>
-      <Card.Header>{title}</Card.Header>
+      <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to={`/game/${id}`}><Card.Header>{title}</Card.Header></Link>
       <Card.Meta>
         <span className='date'>{author}</span>
       </Card.Meta>
@@ -17,7 +17,7 @@ const GameCard = game => {
         <Icon name='dollar sign' />
         {price}
     </Card.Content>
-    <Button onClick={addToCart.bind(this, game)}><Link to="/game/1">Добавить в корзину</Link></Button>
+    <Button onClick={addToCart.bind(this, game)}>Добавить в корзину {id}</Button>
   </Card>
   )
 }
