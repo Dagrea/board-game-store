@@ -10,6 +10,14 @@
 img {
 	max-width: 100%;
 }
+ .mybtn {
+    display: inline-block; 
+    background: #8C959D; 
+    color: #fff;
+    padding: 1rem 1.5rem; 
+    text-decoration: none; 
+    border-radius: 3px; 
+   }
 .myContainer
 {
     width: 80%;
@@ -18,6 +26,10 @@ img {
     margin-right: auto;
     margin-left: auto;
     min-height: 950px;
+}
+.mylytlebtn {
+	width: 10px;
+	height: 10px;
 }
 .myFluid {
 	max-width: 100%;
@@ -43,7 +55,7 @@ img {
 	clear: both;
 }
 .myInline {
-	display: inline-flex;
+	display: inline-flex !important;
 }
 .myLeft, .myRight {
 	width: 49%;
@@ -62,8 +74,6 @@ img {
 	justify-content: center;
 	flex-wrap: wrap;
 	text-align: justify;
-}
-.myCenter  {
 }
 p  {
 	margin-bottom:10px !important;
@@ -89,4 +99,31 @@ p  {
 }
 .ui.inverted.vertical.footer.segment {
 	margin-top: 40px;
+}
+.cartPageConteiner {
+	width: 80%;
+	margin-right: auto;
+    margin-left: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.cartPageName {
+	width: 150px;
+	margin-left: 20px;
+}
+.cartPageTitle {
+	width: 200px;
+	margin-left: 20px;
+}
+.cartPagePrice {
+	width: 50px;
+	margin-left: 20px;
+}
+.cartPageAmount {
+	width: 120px;
+	margin-left: 20px;
+}
+.cartPageSection {
+	height: 200px;
 }

@@ -1,26 +1,33 @@
 import React from 'react';
 import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-const CartComponent = ({ title, id, image, removeFromCart }) => (
-  <List selection divided verticalAlign="middle">
+const CartComponent = ({ name, id,amount,  image, removeFromCart, incrementInCart, decrementInCart }) => {
+	return (
+  <List selection divided verticalAlign="middle" key={id}>
     <List.Item>
-    <List.Content>{title}</List.Content><br/>
+    <List.Content>{name}</List.Content><br/>
+    <List.Content>
+    	<Button className="mylytlebtn" onClick={decrementInCart.bind(this, id)} >-</Button>
+    	{amount}
+    	<Button className="mylytlebtn" onClick={incrementInCart.bind(this, id)} >+</Button>
+    </List.Content><br/>
       <List.Content floated="right">
-        <Button onClick={removeFromCart.bind(this, id)} color="red">
+        <Button  color="red" onClick={removeFromCart.bind(this, id)}>
           Удалить
         </Button>
       </List.Content>
       <Image avatar src={image} />
     </List.Item>
   </List>
-);
+)};
 
 const ExportMenu = ({totalPrice, count, items}) => {
 	const ListComponent = items.map((game,key) => (<CartComponent key={key} {...game} />));
-	ListComponent.push(<Button>Оформить заказ</Button>);
+	ListComponent.push(<Link to={`/cart`} className="mybtn">Оформить заказ</Link>);
 	return (
 		<Menu fixed="top" size='huge'>
-			<Menu.Item  name='browse'>Магазин игр</Menu.Item>
+			<Link to={`../`}><Menu.Item  name='browse'>Playmaker</Menu.Item></Link>
 			<Menu.Item  name='submit'>О нас </Menu.Item>
 			<Menu.Menu position='right'>
 			<Menu.Item name='help'>Техподдержка</Menu.Item>

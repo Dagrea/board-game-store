@@ -2,15 +2,16 @@ import React from 'react';
 import {Card, Icon, Image, Button} from 'semantic-ui-react';
 import placeholder from '../images/dices.png';
 import { Link } from 'react-router-dom';
+
 const GameCard = game => {
-  const {id, image, author, title, price, addToCart} = game;
+  const {id,name, image, author, title, price, addToCart} = game;
   return (
   <Card>
-    <Link to={`/game/${id}`}><Image src={placeholder} wrapped ui={false} /></Link>
+    <Link to={`/game/${id}`}><Image src={image} wrapped ui={false} /></Link>
     <Card.Content>
-      <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to={`/game/${id}`}><Card.Header>{title}</Card.Header></Link>
+      <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to={`/game/${id}`}><Card.Header>{name}</Card.Header></Link>
       <Card.Meta>
-        <span className='date'>{author}</span>
+        <span className='date'>{title}</span>
       </Card.Meta>
     </Card.Content>
     <Card.Content extra>

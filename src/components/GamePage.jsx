@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 import {Image, Button, Icon} from 'semantic-ui-react';
-import Menu from '../containers/Menu';
-import Footer from '../components/Footer.jsx';
 import placeholder from '../images/dices.png';
 
 import '../App.css';
@@ -25,6 +23,9 @@ class GamePage extends React.Component {
 	}
 
 	render () {
+	const state = {...this.state, incrementInCart: this.props.incrementInCart,
+	 decrementInCart: this.props.decrementInCart, 
+	 removeFromCart: this.props.removeFromCart};
     return (
 		<div> 
 			<div className='myContainer'>
@@ -37,7 +38,7 @@ class GamePage extends React.Component {
 						<div className='myCenter myFluid'><div className='mymrgbtm myBlock'>Цена одного набора: {this.state.price} UAH</div></div>
 						<Button fluid color='green' size='large' animated='fade'>
 					   		<Button.Content visible> <Icon name='shop' /></Button.Content>
-					    	<Button.Content hidden>В корзину</Button.Content>
+					    	<Button.Content hidden onClick={this.props.addToCart.bind(this, state)}>В корзину</Button.Content>
 					    </Button>
 					</div>
 				</div>

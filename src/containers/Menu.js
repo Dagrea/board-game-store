@@ -5,9 +5,9 @@ import Menu from '../components/Menu';
 import uniqBy from 'lodash/uniqBy';
 
 const mapStateToProps = ({ cart }) => ({
-  totalPrice: cart.items.reduce((total, game) => total + game.price, 0),
-  count: cart.items.length,
+  totalPrice: cart.items.reduce((total, game) => total + game.price*game.amount, 0),
   items: uniqBy(cart.items, o => o.id),
+  count: uniqBy(cart.items, o => o.id).length,
 });
 
 const mapDispatchToProps = dispatch => ({

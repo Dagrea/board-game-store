@@ -1,16 +1,15 @@
 import React from 'react'
 import axios from 'axios';
 import {Card} from 'semantic-ui-react';
-import Menu from '../containers/Menu';
 import Filter from '../containers/Filter';
 import GameCard from '../containers/GameCard';
-import Footer from '../components/Footer.jsx';
 
 class App extends React.Component {
 	componentWillMount() {
 		const {setGames} = this.props;
-		axios.get('/games.json').then(({data}) => {
+		axios.get('http://localhost:3001/productlist.php').then(({data}) => {
 			setGames(data);
+			console.log(data);			
 		});
 	}
 

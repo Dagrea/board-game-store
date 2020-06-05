@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as cartActions from '../actions/cart';
-import GameCard from '../components/GameCard';
-
-const mapStateToProps = ({ cart }, { id }) => ({
-});
+import GamePage from '../components/GamePage';
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(cartActions, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameCard);
+export default connect(
+ null,
+  mapDispatchToProps,
+)(GamePage);
