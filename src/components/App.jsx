@@ -5,11 +5,11 @@ import Filter from '../containers/Filter';
 import GameCard from '../containers/GameCard';
 
 class App extends React.Component {
-	componentWillMount() {
+	UNSAFE_componentWillMount() {
+		window.scrollTo(0, 1);
 		const {setGames} = this.props;
 		axios.get('http://localhost:3001/productlist.php').then(({data}) => {
-			setGames(data);
-			console.log(data);			
+			setGames(data);	
 		});
 	}
 

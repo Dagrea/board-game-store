@@ -9,11 +9,6 @@ const Filter = ({setFilter, filterBy, searchQuery, setSearchQuery}) => (
           onClick={setFilter.bind(this,'all')}>Все
         </Menu.Item>
         <Menu.Item
-          name='popular'
-          active={filterBy === 'popular'}
-          onClick={setFilter.bind(this,'popular')}>По популярности
-        </Menu.Item>
-        <Menu.Item
           name='price_high'
           active={filterBy === 'price_high'}
           onClick={setFilter.bind(this,'price_high')}>Сначало дорогие

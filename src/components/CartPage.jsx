@@ -1,39 +1,44 @@
 import React from 'react';
 import axios from 'axios';
-import placeholder from '../images/dices.png';
 import {Image, Button} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 const GamePageInCart = ({title, name, price, id,amount,  image, removeFromCart, incrementInCart, decrementInCart }) => {
-  amount = 1;
-	return (
-		<div className="cartPageConteiner">
+  return (
+    <div className="cartPageConteiner">
     <Image src={image} size='small' className="myInline"/>
     <div  className="myInline cartPageName">{name}</div>
     <div  className="myInline cartPageTitle">{title}</div>
     <div  className="myInline cartPageAmount">
-      <Button>-</Button>
+      <Button onClick={decrementInCart.bind(this, id)}>-</Button>
       {amount}
-      <Button>+</Button>
+      <Button onClick={incrementInCart.bind(this, id)}>+</Button>
     </div>
     <div  className="myInline cartPagePrice">{price*amount} грн.</div>
+    <Button onClick={removeFromCart.bind(this, id)}>X</Button>
     </div>
-	)
+  )
 }
 
 class LoginForm extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {paymentMethod: 'Visa, MasterCard', FIO: '', city: '', adress: '', email: '', phone: ''};
+      this.state = {FIO: '', city: '', address: '', email: '', phone: ''};
       this.onChangeInput = this.onChangeInput.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
     }
     onSubmit(event){
       let state=this.state;
       let games = this.props.games;
+      if (this.state.FIO === '' || this.state.city === '' || this.state.address === '' || this.state.email === '' || this.state.phone === '' ) {
+        alert("Введите все данные");event.preventDefault();return ;
+      }
       axios.post('http://localhost:3001/addOrder.php', {...state, games}).then(({data}) => {
-      console.log(data);
-    });
+      if (data === "Succes") {alert("Ваш заказ добавлен в очередь");}
+      else  {alert("Произошла ошибка, попробуйте позже или обратитесь в техподдержку")}
+      });
       event.preventDefault();
+      
     }
     onChangeInput(event) {
       const name = event.target.name;
@@ -48,51 +53,35 @@ class LoginForm extends React.Component {
              value={this.state.email} onChange={this.onChangeInput}/></label></div>
           <div><label> Телефон: <input name="phone"  type="tel"
                                value={this.state.phone} onChange={this.onChangeInput}/></label></div>
-          <div><label> Способ оплаты: <select name="paymentMethod"  value={this.state.paymentMethod} onChange={this.onChangeInput}>
-              <option value="Visa, MasterCard">Visa, MasterCard</option>
-              <option value="Оплата при доставке">Оплата при доставке</option>
-            </select>
-          </label></div>
           <div><label> Город: <input name="city"  type="text"
              value={this.state.city} onChange={this.onChangeInput}/></label></div>
-          <div><label> Адрес: <input name="adress"  type="text"
-              value={this.state.adress} onChange={this.onChangeInput}/></label></div>
+          <div><label> Адрес: <input name="address"  type="text"
+              value={this.state.address} onChange={this.onChangeInput}/></label></div>
           <input type="submit" value="Оформить заказ"/>
         </form>
       );
     }
   }
 
-class Cart extends React.Component {
-
-	render () {  	
-  	const games = [{
-  	    "id": 1,
-  	    "title": "Классическая настольная игра, требующая составления слов с помощью фишек-букв.",
-  	    "name": "Скрабл",
-  	    "image": "https://www.mosigra.ru/mosigra.product.main/522/544/1-7_800x500.jpg",
-  	    "price": 710,
-  	    "amount": 3
-  	  },
-  	  {
-  	    "id": 2,
-  	    "title": "Берите эту игру на вечеринки. Научиться в неё играть — дело пяти минут, а весело будет всем.",
-  	    "name": "Взрывные котята",
-  	    "image": "https://www.mosigra.ru/mosigra.product.main/559/016/DSC_6565_800x500.jpg",
-  	    "price": 415,
-  	    "amount": 5
-  	  }]//this.props;
+class CartPage extends React.Component {
+  UNSAFE_componentWillMount() {
+    window.scrollTo(0, 1);
+  }
+  render () {  
+  const {incrementInCart, decrementInCart, removeFromCart} = this.props;
+    const games = this.props.items;
     return (
-			<div className='myContainer'>
-			{
-				games.map((game,index) => (
-					<GamePageInCart key={index} {...game} />
-				))
-			}
-      <LoginForm games={games}/>
-			</div>
+      games.length === 0 ? <div className='myContainer'> <Link to={`../`}>На главную</Link></div>:
+      <div className='myContainer'>
+      {
+        games.map((game,index) => (
+          <GamePageInCart key={index} {...game} {...incrementInCart} {...decrementInCart} {...removeFromCart} />
+        ))
+      }
+      <LoginForm games={games} />
+      </div>
       )
   }
 }
 
-export default  Cart;
+export default  CartPage;
