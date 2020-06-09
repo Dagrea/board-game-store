@@ -6,6 +6,7 @@ import Cart from '../containers/CartPage.js';
 import Footer from '../components/Footer.jsx';
 import Registration from '../components/Registration.jsx';
 import Account from '../containers/Account.js';
+import AdminPage from '../admin/AdminPage.jsx';
 
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
 import '../App.css';
@@ -26,8 +27,13 @@ class MainApp extends React.Component {
 				    </Route>
 				    <Route path="/account" component={Account}> 
 				    </Route>
-				    <Route path="/" component={App}>
+				    <Route path="/admin" component={AdminPage}> 
 				    </Route>
+				    <Route exact path="/" component={App}>
+				    </Route>
+				    <Route
+			          path="*"
+			          render={() => <div className='myContainer'><h1>Page not fount </h1></div>} />
 				</Switch>
 			<Footer/>
 			</BrowserRouter>

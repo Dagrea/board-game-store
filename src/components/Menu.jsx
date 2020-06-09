@@ -24,7 +24,6 @@ const CartComponent = ({ name, id,amount,  image, removeFromCart, incrementInCar
 )};
 
 const AccountCart = ({account, logIn, logOut}) => {
-  console.log(account.login);
 	return (
  	account.login !== "" ? <div><Link to={`/account`}  className="mybtn">Изменить данные</Link><div onClick={logOut} >Выйти</div></div> :
  	<div><div>Вход</div><LoginForm logIn={logIn} /><br/><Link to={`/registration`}  className="mybtn">Зарегистрироваться</Link></div>

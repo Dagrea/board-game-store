@@ -34,9 +34,6 @@ img {
 .myFluid {
 	max-width: 100%;
 }
-.my80prc {
-	
-}
 .myCenterChild {
 	align-self: center;
 }
@@ -127,4 +124,18 @@ p  {
 }
 .cartPageSection {
 	height: 200px;
+}
+.adminPageConteiner {
+    margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+    max-width: 1024px;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 950px;
+}
+.adminGamePage {
+    margin:10px;
 }
