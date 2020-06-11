@@ -23,10 +23,10 @@ class About extends React.Component {
 				  <div ><p></p> <hr color="#cb1812" /><p></p></div>
 				<h4>Контакты:</h4>
 				<p>Общие вопросы&nbsp;— +38 (050) 916-50-31, <a href="mailto:dagonsha@gmail.com">
-				dagonsha@gmail.com</a></p>
-				<p>Техподдержка&nbsp;— <a href="mailto:dagonsha@gmail.com">dagonsha@gmail.com</a>
+				contact.playmaker@gmail.com</a></p>
+				<p>Техподдержка&nbsp;— <a href="mailto:dagonsha@gmail.com">help.playmaker@gmail.com</a>
 				</p>
-				<p>Маркетинг&nbsp;— <a href="mailto:dagonsha@gmail.com">dagonsha@gmail.com</a>
+				<p>Маркетинг&nbsp;— <a href="mailto:dagonsha@gmail.com">playmaker@gmail.com</a>
 				</p>
 			</div>
 		</div>

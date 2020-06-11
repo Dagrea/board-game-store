@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Menu, Button } from 'semantic-ui-react';
+import { Menu, Button, Form} from 'semantic-ui-react';
 
 
   class AdminPage extends React.Component {
@@ -60,27 +60,26 @@ class AddPage extends React.Component {
     render() {
       return (
         <div className='myContainer'>
-        <form onSubmit={this.onSubmit}>
-            <div><label>Название<input name="name" id="addGameForm" type="text"
-              value={this.state.name} onChange={this.onChangeInput}/>
-            </label></div>
-            <div><label>Цена<input name="price"  type="text"
-              value={this.state.price} onChange={this.onChangeInput}/>
-            </label></div>
-            <div><label>Адрес изображения<input name="image"  type="text"
-              value={this.state.image} onChange={this.onChangeInput}/>
-            </label></div>
-            <div><label>Краткое описание:<textarea name="title" rows="3" cols="45" type="text"
-              value={this.state.title} onChange={this.onChangeInput}/>
-            </label></div>
-            <div><label>Полное описание<textarea name="description" rows="10" cols="45" type="text"
-              value={this.state.description} onChange={this.onChangeInput}/>
-            </label></div>
-            <div><label>Инструкция<textarea name="instruction" rows="10" cols="45" type="text"
-              value={this.state.instruction} onChange={this.onChangeInput}/>
-            </label></div>
-          <input type="submit" value="Добавить товар"/>
-        </form>
+        <h2  style={{ textAlign: 'center'}} >Добавление товара</h2>        
+        <Form onSubmit={this.onSubmit}>
+        <Form.Group widths='equal'>
+          <Form.Input fluid label='Название товара' placeholder='' name="name" 
+          type="text" value={this.state.name} onChange={this.onChangeInput}/>
+          <Form.Input fluid label='Цена' placeholder='' name="price" 
+          type="text" value={this.state.price} onChange={this.onChangeInput}/>
+          <Form.Input fluid label='Адрес изображение' placeholder='' name="image" 
+          type="text" value={this.state.image} onChange={this.onChangeInput}/>
+        </Form.Group>
+        <Form.TextArea label='Краткое описание' placeholder='' rows='2' name="title" 
+          type="text" value={this.state.title} onChange={this.onChangeInput}/>
+        <Form.TextArea label='Полное описание' placeholder='' 
+          name="description" rows='5'
+          type="text" value={this.state.description} onChange={this.onChangeInput}/>  
+        <Form.TextArea label='Инструкция' placeholder='' 
+          name="instruction" rows='5'
+          type="text" value={this.state.instruction} onChange={this.onChangeInput}/>
+        <Form.Button type='submit'>Отправить</Form.Button>
+        </Form>
         </div>
       );
     }
@@ -134,6 +133,27 @@ const GamePageInList = ({title, name, price, id,amount,  image, description, ins
     <div className='myInline adminGamePage'><label>Инструкция<br/><textarea name="instruction" rows="10" cols="60" type="text"
       value={instruction} /></label><br/></div><br/><hr/><br/>
     </div>
+
+   /* <Form onSubmit={this.onSubmit}>
+        <Form.Group widths='equal'>
+          <Form.Input fluid label='Название товара' placeholder='' name="name" 
+          type="text" value={this.state.name} onChange={this.onChangeInput}/>
+          <Form.Input fluid label='Цена' placeholder='' name="price" 
+          type="text" value={this.state.price} onChange={this.onChangeInput}/>
+          <Form.Input fluid label='Адрес изображение' placeholder='' name="image" 
+          type="text" value={this.state.image} onChange={this.onChangeInput}/>
+        </Form.Group>
+        <Form.TextArea label='Краткое описание' placeholder='' rows='2' name="title" 
+          type="text" value={this.state.title} onChange={this.onChangeInput}/>
+        <Form.TextArea label='Полное описание' placeholder='' 
+          name="description" rows='5'
+          type="text" value={this.state.description} onChange={this.onChangeInput}/>  
+        <Form.TextArea label='Инструкция' placeholder='' 
+          name="instruction" rows='5'
+          type="text" value={this.state.instruction} onChange={this.onChangeInput}/>
+        <Form.Button type='submit'>Отправить</Form.Button>
+        </Form>*/
+
   )
 }
 

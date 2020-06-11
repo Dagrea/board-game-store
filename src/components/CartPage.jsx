@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Image, Button} from 'semantic-ui-react';
+import {Image, Button, Form} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const GamePageInCart = ({title, name, price, product_id,amount,  image, removeFromCart, incrementInCart, decrementInCart }) => {
@@ -46,19 +46,25 @@ class LoginForm extends React.Component {
     }
     render() {
       return (
-        <form onSubmit={this.onSubmit}>
-          <div><label>ФИО: <input name="FIO"  type="text"
-             value={this.state.FIO} onChange={this.onChangeInput}/></label></div>
-          <div><label> Email: <input name="email"  type="email"
-             value={this.state.email} onChange={this.onChangeInput}/></label></div>
-          <div><label> Телефон: <input name="phone"  type="tel"
-                               value={this.state.phone} onChange={this.onChangeInput}/></label></div>
-          <div><label> Город: <input name="city"  type="text"
-             value={this.state.city} onChange={this.onChangeInput}/></label></div>
-          <div><label> Адрес: <input name="address"  type="text"
-              value={this.state.address} onChange={this.onChangeInput}/></label></div>
-          <input type="submit" value="Оформить заказ"/>
-        </form>
+        <div>
+        <h2 style={{ textAlign: 'center'}} >Форма оформления заказа</h2>        
+        <Form onSubmit={this.onSubmit}>
+        <Form.Group widths='equal'>
+          <Form.Input fluid label='Имя' placeholder='Введите своё имя' name="FIO" 
+          type="text" value={this.state.FIO} onChange={this.onChangeInput}/>
+          <Form.Input fluid label='Електронная почта' placeholder='Введите почту, через которую с вами будут поддерживать связь' 
+          name="email" 
+          type="email" value={this.state.email} onChange={this.onChangeInput}/>
+          <Form.Input fluid label='Телефон' placeholder='Введите своё имя' name="phone" 
+          type="text" value={this.state.phone} onChange={this.onChangeInput}/>        
+          <Form.Input fluid label='Город' placeholder='Напишите город, в который будет осуществляться доставка' 
+          name="city" type="text" value={this.state.city} onChange={this.onChangeInput}/>        
+          <Form.Input fluid label='Адрес' placeholder='Введите адрес, по которому прибудет ваша покупка' name="address" 
+          type="text" value={this.state.address} onChange={this.onChangeInput}/>                
+        </Form.Group>
+        <Form.Button type='submit'>Отправить</Form.Button>
+        </Form>
+        </div>
       );
     }
   }
@@ -71,7 +77,7 @@ class CartPage extends React.Component {
   const {incrementInCart, decrementInCart, removeFromCart, totalPrice} = this.props;
     const games = this.props.items;
     return (
-      games.length === 0 ? <div className='myContainer'> <Link to={`../`}>На главную</Link></div>:
+      games.length === 0 ? <div className='myContainer'> <Link to={`../`}><Button size='huge'>На главную</Button></Link></div>:
       <div className='myContainer'>
       {
         games.map((game,index) => (

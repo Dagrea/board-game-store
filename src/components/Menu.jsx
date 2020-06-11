@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
+import { Menu, Popup, List, Button, Image, Form } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const CartComponent = ({ name, product_id,amount,  image, removeFromCart, incrementInCart, decrementInCart }) => {
@@ -25,8 +25,8 @@ const CartComponent = ({ name, product_id,amount,  image, removeFromCart, increm
 
 const AccountCart = ({account, logIn, logOut}) => {
 	return (
- 	account.login !== "" ? <div><Link to={`/account`}  className="mybtn">Изменить данные</Link><div onClick={logOut} >Выйти</div></div> :
- 	<div><div>Вход</div><LoginForm logIn={logIn} /><br/><Link to={`/registration`}  className="mybtn">Зарегистрироваться</Link></div>
+ 	account.login !== "" ? <div><Link to={`/account`} style={{ color: 'inherit', textDecoration: 'inherit'}} className="mybtn">Изменить данные</Link><hr/><Button fluid onClick={logOut} >Выйти</Button></div> :
+ 	<div><div>Вход</div><LoginForm logIn={logIn} /><br/><Link to={`/registration`} style={{ color: 'inherit', textDecoration: 'inherit'}} className="mybtn">Зарегистрироваться</Link></div>
 	)};
 
 class LoginForm extends React.Component {
@@ -46,7 +46,6 @@ class LoginForm extends React.Component {
       axios.post('http://localhost:3001/authorization.php', {...state}).then(({data}) => {
       let {login,password,full_name,email,phone,city,address} = {...data};
       login = data.login;
-      console.log(login,password,full_name,email,phone,city,address);
       const logIn = this.props.logIn;
       logIn({login: login, password: password,fullname: full_name, city: city, address: address, email: email, phone: phone});
       });
@@ -59,13 +58,15 @@ class LoginForm extends React.Component {
     render() {
       
       return (
-        <form onSubmit={this.onSubmit}>
-          <div><label>login &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="login"  type="text"
-             value={this.state.login} onChange={this.onChangeInput}/></label></div>
-          <div><label>password:<input name="password"  type="text"
-             value={this.state.text} onChange={this.onChangeInput}/></label></div>
-          <input type="submit" value="Войти"/>
-        </form>
+        <Form onSubmit={this.onSubmit} size='tiny'>
+        <Form.Group widths='equal'>
+          <Form.Input fluid label='Логин' placeholder='' name="login" 
+          type="text" value={this.state.login} onChange={this.onChangeInput}/>
+          <Form.Input fluid label='Пароль' placeholder='' name="password" 
+          type="text" value={this.state.password} onChange={this.onChangeInput}/>                      
+        </Form.Group>
+        <Form.Button fluid type='submit'>Войти</Form.Button>
+        </Form>
       );
     }
   }

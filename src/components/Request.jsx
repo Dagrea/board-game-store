@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Form } from 'semantic-ui-react';
 
 class Request extends React.Component {
 	constructor(props) {
@@ -31,25 +32,21 @@ class Request extends React.Component {
     render() {
       return (
       	<div className='myContainer'>
-        <form onSubmit={this.onSubmit}>
-            <div><label>Имя<input name="fullname"  type="text"
-            	value={this.state.fullname}  className='myInline adminGamePage'
-              onChange={this.onChangeInput}/>
-            </label></div>
-            <div><label>e-mail<input name="email"  type="text"
-            	value={this.state.email} className='myInline adminGamePage' 
-              onChange={this.onChangeInput}/>
-            </label></div>
-            <div><label>Тема сообщения<textarea rows="1" cols="45" type="text"
-              name="theme"  className='myInline adminGamePage' 
-              value={this.state.theme} onChange={this.onChangeInput}/>
-            </label></div>
-            <div><label>Сообщение<textarea rows="10" cols="45" type="text"
-              name="message"  className='myInline adminGamePage'
-            	value={this.state.message} onChange={this.onChangeInput}/>
-            </label></div>
-          <input type="submit" value="Отправить"/>
-        </form>
+        <h1  className='' style={{ textAlign: 'center'}} >Техподдержка</h1>        
+        <Form onSubmit={this.onSubmit}>
+        <Form.Group widths='equal'>
+          <Form.Input fluid label='Имя' placeholder='Введите своё имя' name="fullname" 
+          type="text" value={this.state.fullname} onChange={this.onChangeInput}/>
+          <Form.Input fluid label='Електронная почта' placeholder='Напишите свою почту, через которую с вами будут поддерживать связь' name="email" 
+          type="email" value={this.state.email} onChange={this.onChangeInput}/>
+        </Form.Group>
+        <Form.TextArea label='Тема сообщения' placeholder='Краткое описание проблемы' rows='2' name="theme" 
+          type="text" value={this.state.theme} onChange={this.onChangeInput}/>
+        <Form.TextArea label='Сообщение' placeholder='Опишите нам свою проблему' 
+          name="message" rows='4'
+          type="text" value={this.state.message} onChange={this.onChangeInput}/>
+        <Form.Button type='submit'>Отправить</Form.Button>
+        </Form>
         </div>
       );
     }

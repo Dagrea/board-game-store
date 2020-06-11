@@ -25,7 +25,7 @@ img {
     margin-top: 60px;
     margin-right: auto;
     margin-left: auto;
-    min-height: 950px;
+    min-height: 100vh;
 }
 .mylytlebtn {
 	width: 10px;
@@ -134,7 +134,7 @@ p  {
     margin-top: 20px;
     margin-right: auto;
     margin-left: auto;
-    min-height: 950px;
+    min-height: 100vh;
 }
 .adminGamePage {
     margin:10px;
