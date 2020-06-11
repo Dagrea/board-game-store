@@ -3,18 +3,18 @@ import axios from 'axios';
 import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const CartComponent = ({ name, id,amount,  image, removeFromCart, incrementInCart, decrementInCart }) => {
+const CartComponent = ({ name, product_id,amount,  image, removeFromCart, incrementInCart, decrementInCart }) => {
 	return (
-  <List selection divided verticalAlign="middle" key={id}>
+  <List selection divided verticalAlign="middle" key={product_id}>
     <List.Item>
     <List.Content>{name}</List.Content><br/>
     <List.Content>
-    	<Button className="mylytlebtn" onClick={decrementInCart.bind(this, id)} >-</Button>
+    	<Button className="mylytlebtn" onClick={decrementInCart.bind(this, product_id)} >-</Button>
     	{amount}
-    	<Button className="mylytlebtn" onClick={incrementInCart.bind(this, id)} >+</Button>
+    	<Button className="mylytlebtn" onClick={incrementInCart.bind(this, product_id)} >+</Button>
     </List.Content><br/>
       <List.Content floated="right">
-        <Button  color="red" onClick={removeFromCart.bind(this, id)}>
+        <Button  color="red" onClick={removeFromCart.bind(this, product_id)}>
           Удалить
         </Button>
       </List.Content>
@@ -37,18 +37,19 @@ class LoginForm extends React.Component {
       this.onSubmit = this.onSubmit.bind(this);
     }
     onSubmit(event){
-      /*let state=this.state;
-      if (this.state.FIO === '' || this.state.city === '') {
+      let state=this.state;
+      if (this.state.login === '' || this.state.password === '') {
         alert("Введите все данные");
         event.preventDefault();
         return ;
       }
       axios.post('http://localhost:3001/authorization.php', {...state}).then(({data}) => {
-      if (data == "Succes") {alert("Вы успешно вошли");}
-      else  {alert("Произошла ошибка, попробуйте позже или обратитесь в техподдержку")}
-      });*/
+      let {login,password,full_name,email,phone,city,address} = {...data};
+      login = data.login;
+      console.log(login,password,full_name,email,phone,city,address);
       const logIn = this.props.logIn;
-      logIn({login: "admin", password: "admin",fullname: 'Журавлёв', city: 'м.Краматорск', address: 'Заслонова 18', email: 'dagonsha@gmail.com', phone: '+380509165031'});
+      logIn({login: login, password: password,fullname: full_name, city: city, address: address, email: email, phone: phone});
+      });
       event.preventDefault();      
     }
     onChangeInput(event) {
@@ -56,7 +57,7 @@ class LoginForm extends React.Component {
       this.setState({[name]: event.target.value});
     }
     render() {
-      //console.log(this.props);
+      
       return (
         <form onSubmit={this.onSubmit}>
           <div><label>login &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="login"  type="text"
@@ -76,9 +77,9 @@ const ExportMenu = (props) => {
 	return (
 		<Menu fixed="top" size='huge'>
 			<Link to={`../`}><Menu.Item  name='browse'>Playmaker</Menu.Item></Link>
-			<Menu.Item  name='submit'>О нас </Menu.Item>
+			<Link to={`/about`}><Menu.Item  name='submit'>О нас </Menu.Item></Link>
 			<Menu.Menu position='right'>
-			<Menu.Item name='help'>Техподдержка</Menu.Item>
+			<Link to={`/request`}><Menu.Item name='help'>Техподдержка</Menu.Item></Link>
 			<Popup
 			position='bottom center'
 	    	trigger={

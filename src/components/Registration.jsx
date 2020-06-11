@@ -10,12 +10,13 @@ class Registration extends React.Component {
     }
     onSubmit(event){
       let state=this.state;
-      if (this.state.FIO === '' || this.state.city === '') {
+      if (this.state.login === '' || this.state.password === '' || this.state.fullname === '' || this.state.email === ''
+        || this.state.phone === '' || this.state.city === '' || this.state.addres === '') {
         alert("Введите все данные");
         event.preventDefault();
         return ;
       }
-      axios.post('http://localhost:3001/authorization.php', {...state}).then(({data}) => {
+      axios.post('http://localhost:3001/registration.php', {...state}).then(({data}) => {
       if (data === "Succes") {alert("Вы успешно зарегистрировались");}
       else  {alert("Произошла ошибка, попробуйте позже или обратитесь в техподдержку")}
       });

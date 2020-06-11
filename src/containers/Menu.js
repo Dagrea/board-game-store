@@ -7,8 +7,8 @@ import uniqBy from 'lodash/uniqBy';
 const mapStateToProps = ({ cart,account }) => ({
   account:account,
   totalPrice: cart.items.reduce((total, game) => total + game.price*game.amount, 0),
-  items: uniqBy(cart.items, j => j.id),
-  count: cart.items.reduce((length, game) => length + game.amount, 0),
+  items: uniqBy(cart.items, j => j.product_id),
+  count: uniqBy(cart.items, j => j.product_id).reduce((length, game) => length + game.amount, 0),
 });
 
 const mapDispatchToProps = dispatch => ({

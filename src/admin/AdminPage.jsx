@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { Menu, Button, Image } from 'semantic-ui-react';
+import { Menu, Button } from 'semantic-ui-react';
 
 
   class AdminPage extends React.Component {

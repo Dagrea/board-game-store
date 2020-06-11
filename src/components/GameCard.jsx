@@ -3,12 +3,12 @@ import {Card, Icon, Image, Button} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const GameCard = game => {
-  const {id,name, image, title, price, addToCart} = game;
+  const {product_id,name, image, title, price, addToCart} = game;
   return (
   <Card>
-    <Link to={`/game/${id}`}><Image src={image} wrapped ui={false} /></Link>
+    <Link to={`/game/${product_id}`}><Image src={image} wrapped ui={false} /></Link>
     <Card.Content>
-      <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to={`/game/${id}`}><Card.Header>{name}</Card.Header></Link>
+      <Link style={{ color: 'inherit', textDecoration: 'inherit'}} to={`/game/${product_id}`}><Card.Header>{name}</Card.Header></Link>
       <br/><Card.Meta>
         <span className='date'>{title}</span>
       </Card.Meta>

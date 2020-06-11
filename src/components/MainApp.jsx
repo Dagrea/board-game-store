@@ -5,6 +5,8 @@ import GamePage from '../containers/GamePage.js';
 import Cart from '../containers/CartPage.js';
 import Footer from '../components/Footer.jsx';
 import Registration from '../components/Registration.jsx';
+import Request from '../components/Request.jsx';
+import About from '../components/About.jsx';
 import Account from '../containers/Account.js';
 import AdminPage from '../admin/AdminPage.jsx';
 
@@ -24,6 +26,10 @@ class MainApp extends React.Component {
 				    <Route path="/cart" component={Cart}> 
 				    </Route>
 				    <Route path="/registration" component={Registration}> 
+				    </Route>
+				    <Route path="/request" component={Request}> 
+				    </Route>
+				    <Route path="/about" component={About}> 
 				    </Route>
 				    <Route path="/account" component={Account}> 
 				    </Route>

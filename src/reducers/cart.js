@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
       };
     case "INCREMENT_IN_CART":
     for (let i = 0; i < state.items.length; i++) {
-      if (state.items[i].id === action.payload) {var current = i;break;}
+      if (state.items[i].product_id === action.payload) {var current = i;break;}
     }
     state.items[current].amount++;
       return {
@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
       };
       case "DECREMENT_IN_CART":
         for (let i = 0; i < state.items.length; i++) {
-          if (state.items[i].id === action.payload) {var dcurrent = i;break;}
+          if (state.items[i].product_id === action.payload) {var dcurrent = i;break;}
         }
         state.items[dcurrent].amount--;
         if (state.items[dcurrent].amount <= 0) {state.items[dcurrent].amount = 1}
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
     case "REMOVE_FROM_CART":
       return {
         ...state,
-        items: state.items.filter(j => j.id !== action.payload)
+        items: state.items.filter(j => j.product_id !== action.payload)
       };
     default:
       return state;

@@ -23,10 +23,11 @@ class Account extends React.Component {
         event.preventDefault();
         return ;
       }
-      /*axios.post('http://localhost:3001/accounchanges.php', {...state}).then(({data}) => {
-      if (data === "Succes") {alert("Вы успешно зарегистрировались");}
+      let state=this.state;
+      axios.post('http://localhost:3001/accounchanges.php', {...state}).then(({data}) => {
+      if (data === "Succes") {alert("Вы успешно изменили свои данные");}
       else  {alert("Произошла ошибка, попробуйте позже или обратитесь в техподдержку")}
-      });*/
+      });
     const newAccountData ={login: this.state.login, password: this.state.password, fullname: this.state.fullname, email: this.state.email, phone: this.state.phone, city: this.state.city, address: this.state.address};
     this.setState({...newAccountData});
     event.preventDefault();    
@@ -37,7 +38,6 @@ class Account extends React.Component {
       this.setState({[name]: event.target.value});
     }
     render() {
-      console.log(this.state);
       return (
         <div className='myContainer'>
         <form onSubmit={this.onSubmit}>

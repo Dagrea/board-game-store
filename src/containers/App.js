@@ -20,8 +20,8 @@ const sortBy = (games, filterBy) => {
 const filterGames = (games, searchQuery) => 
 	games.filter(
 		o =>
-			o.title.toLowerCase().indexOf(searchQuery.toLowerCase()) >=0 || 
-			o.author.toLowerCase().indexOf(searchQuery.toLowerCase()) >=0,
+			o.name.toLowerCase().indexOf(searchQuery.toLowerCase()) >=0 || 
+			o.title.toLowerCase().indexOf(searchQuery.toLowerCase()) >=0,
 	);
 
 const searchGames = (games, filterBy, searchQuery) => {

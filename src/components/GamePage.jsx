@@ -23,6 +23,7 @@ class GamePage extends React.Component {
 	}
 
 	render () {
+		console.log(this.state);
 	const state = {...this.state, incrementInCart: this.props.incrementInCart,
 	 decrementInCart: this.props.decrementInCart, 
 	 removeFromCart: this.props.removeFromCart};
