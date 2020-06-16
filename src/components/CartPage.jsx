@@ -11,7 +11,7 @@ const GamePageInCart = ({title, name, price, product_id,amount,  image, removeFr
     <div  className="myInline cartPageTitle">{title}</div>
     <div  className="myInline cartPageAmount">
       <Button onClick={decrementInCart.bind(this, product_id)}>-</Button>
-      {amount}
+      <div style={{ fontSize: '20px'}}>{amount}</div>
       <Button onClick={incrementInCart.bind(this, product_id)}>+</Button>
     </div>
     <div  className="myInline cartPagePrice">{price*amount} грн.</div>
@@ -57,7 +57,7 @@ class LoginForm extends React.Component {
           type="email" value={this.state.email} onChange={this.onChangeInput}/>
           <Form.Input fluid label='Телефон' placeholder='Введите своё имя' name="phone" 
           type="text" value={this.state.phone} onChange={this.onChangeInput}/>        
-          <Form.Input fluid label='Город' placeholder='Напишите город, в который будет осуществляться доставка' 
+          </Form.Group><Form.Group widths='equal'><Form.Input fluid label='Город' placeholder='Напишите город, в который будет осуществляться доставка' 
           name="city" type="text" value={this.state.city} onChange={this.onChangeInput}/>        
           <Form.Input fluid label='Адрес' placeholder='Введите адрес, по которому прибудет ваша покупка' name="address" 
           type="text" value={this.state.address} onChange={this.onChangeInput}/>                

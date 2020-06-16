@@ -80,7 +80,6 @@ const ExportMenu = (props) => {
 			<Link to={`../`}><Menu.Item  name='browse'>Playmaker</Menu.Item></Link>
 			<Link to={`/about`}><Menu.Item  name='submit'>О нас </Menu.Item></Link>
 			<Menu.Menu position='right'>
-			<Link to={`/request`}><Menu.Item name='help'>Техподдержка</Menu.Item></Link>
 			<Popup
 			position='bottom center'
 	    	trigger={
@@ -98,7 +97,7 @@ const ExportMenu = (props) => {
 			 		  Корзина (<b>{count}</b>)
 		    	</Menu.Item>
 				}
-				header={<div>Итого: {totalPrice}</div>}
+				header={<div>Итого: {totalPrice} грн.</div>}
 		      content={ListComponent}
 		      on="click" hideOnScroll
 	     	/>

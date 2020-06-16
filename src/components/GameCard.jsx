@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, Icon, Image, Button} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import placeholder from '../images/dices.png';
 
 const GameCard = game => {
   const {product_id,name, image, title, price, addToCart} = game;
@@ -14,8 +15,7 @@ const GameCard = game => {
       </Card.Meta>
     </Card.Content>
     <Card.Content extra>
-        <Icon name='ruble sign' />
-        {price}
+        {price} грн.
     </Card.Content>
     <Button onClick={addToCart.bind(this, game)}>Добавить в корзину</Button>
   </Card>

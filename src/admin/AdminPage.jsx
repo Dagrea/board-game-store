@@ -1,13 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 import { Menu, Button, Form} from 'semantic-ui-react';
-
+import AddPage from '../admin/AddPage.jsx';
+import GameListPage from '../admin/GameListPage.jsx';
+import OrderListPage from '../admin/OrderListPage.jsx';
 
   class AdminPage extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {page: false,};
+      this.state = {page: false,authorized:false,login:"",password:""};
       this.handleClick = this.handleClick.bind(this);
+      this.loginn = this.loginn.bind(this);
+      this.onChangeInput = this.onChangeInput.bind(this);
     }
     UNSAFE_componentWillMount() {
       window.scrollTo(0, 1);
@@ -15,9 +19,25 @@ import { Menu, Button, Form} from 'semantic-ui-react';
     handleClick (e, { name }) { 
       this.setState({ page: name })
     }
-
+    loginn () {
+      if (this.state.login === "admin" || this.state.password === "admin") {
+        this.setState({ authorized: true })
+      }
+    };
+    onChangeInput(event) {
+      const name = event.target.name;
+      this.setState({[name]: event.target.value});
+    }
     render() {
+      const authorized = this.state.authorized;
       return (
+        authorized === false ? <div className='myContainer'>
+        <div className='myInline adminGamePage'><label>Логин<br/><textarea name="login" rows="1" cols="20" type="text"
+          value={this.state.login} onChange={this.onChangeInput} /></label><br/></div>
+        <div className='myInline adminGamePage'><label>Пароль<br/><textarea name="password" rows="1" cols="20" type="text"
+          value={this.state.password} onChange={this.onChangeInput}/></label><br/></div><br/>
+          <Button onClick={this.loginn} >Войти</Button>
+        </div> :
         <div className='myContainer'>
         <Menu size='huge'>
           <Menu.Item  name='addGame'  onClick={this.handleClick}>Добавить товар</Menu.Item>
@@ -26,136 +46,11 @@ import { Menu, Button, Form} from 'semantic-ui-react';
         </Menu>
     {this.state.page === "addGame" ? <AddPage/> :
      this.state.page === "gamesList" ? <GameListPage/> :
-     <div></div>} 
+     this.state.page === "orders" ? <OrderListPage/> :
+     <div>?</div>} 
     </div>
       );
     }
   }
-
-
-class AddPage extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = {name: '', price: '',image: '', title: '',description: '', instruction: ''};
-      this.onChangeInput = this.onChangeInput.bind(this);
-      this.onSubmit = this.onSubmit.bind(this);
-    }
-    onSubmit(event){
-      let state=this.state;
-      if (this.state.name === '' || this.state.price === '') {
-        alert("Введите все данные");
-        event.preventDefault();
-        return ;
-      }
-      axios.post('http://localhost:3001/addgame.php', {...state}).then(({data}) => {
-      if (data === "Succes") {alert("Товар добавлен");}
-      else  {alert("Произошла ошибка")}
-      });
-      event.preventDefault();      
-    }
-    onChangeInput(event) {
-      const name = event.target.name;
-      this.setState({[name]: event.target.value});
-    }
-    render() {
-      return (
-        <div className='myContainer'>
-        <h2  style={{ textAlign: 'center'}} >Добавление товара</h2>        
-        <Form onSubmit={this.onSubmit}>
-        <Form.Group widths='equal'>
-          <Form.Input fluid label='Название товара' placeholder='' name="name" 
-          type="text" value={this.state.name} onChange={this.onChangeInput}/>
-          <Form.Input fluid label='Цена' placeholder='' name="price" 
-          type="text" value={this.state.price} onChange={this.onChangeInput}/>
-          <Form.Input fluid label='Адрес изображение' placeholder='' name="image" 
-          type="text" value={this.state.image} onChange={this.onChangeInput}/>
-        </Form.Group>
-        <Form.TextArea label='Краткое описание' placeholder='' rows='2' name="title" 
-          type="text" value={this.state.title} onChange={this.onChangeInput}/>
-        <Form.TextArea label='Полное описание' placeholder='' 
-          name="description" rows='5'
-          type="text" value={this.state.description} onChange={this.onChangeInput}/>  
-        <Form.TextArea label='Инструкция' placeholder='' 
-          name="instruction" rows='5'
-          type="text" value={this.state.instruction} onChange={this.onChangeInput}/>
-        <Form.Button type='submit'>Отправить</Form.Button>
-        </Form>
-        </div>
-      );
-    }
-  }
-
-  class GameListPage extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = {games:false}
-    }
-  UNSAFE_componentWillMount() {
-    axios.get('http://localhost:3001/productlist.php').then(({data}) => {
-      this.setState({games: data});
-    });
-  }
-  onDataChange(game) {
-
-  };
-  onGameDelete() {
-
-  }
-  render () { 
-  const games = this.state.games;  
-    return (
-    games === false ? <div className='myContainer'>Загрузка</div> :
-    (<div><hr/>
-      {
-        games.map((game,index) => (
-        <GamePageInList key={index} {...game} />
-        ))
-      }
-    </div>) 
-    )
-  }
-}
-const GamePageInList = ({title, name, price, id,amount,  image, description, instruction }) => {
-  return (
-    <div className="AdminPageConteiner">
-    <Button>Сохранить изменения</Button>
-    <Button>Удалить товар</Button><br/>
-    <div className='myInline adminGamePage'><label>Название<br/><textarea name="name" rows="1" cols="45" type="text"
-      value={name}/></label><br/></div>
-    <div className='myInline adminGamePage'><label>Цена<br/><textarea name="price" rows="1" cols="45" type="text"
-      value={price} /></label><br/></div>
-    <div className='myInline adminGamePage'><label>Адрес изображения<br/><textarea name="image" rows="2" cols="60" type="text"
-      value={image} /></label><br/></div>
-    <div className='myInline adminGamePage'><label>Краткое описание<br/><textarea name="title" rows="3" cols="60" type="text"
-      value={title} /></label><br/></div>
-    <div className='myInline adminGamePage'><label>Полное описание<br/><textarea name="description" rows="10" cols="60" type="text"
-      value={description} /></label><br/></div>
-    <div className='myInline adminGamePage'><label>Инструкция<br/><textarea name="instruction" rows="10" cols="60" type="text"
-      value={instruction} /></label><br/></div><br/><hr/><br/>
-    </div>
-
-   /* <Form onSubmit={this.onSubmit}>
-        <Form.Group widths='equal'>
-          <Form.Input fluid label='Название товара' placeholder='' name="name" 
-          type="text" value={this.state.name} onChange={this.onChangeInput}/>
-          <Form.Input fluid label='Цена' placeholder='' name="price" 
-          type="text" value={this.state.price} onChange={this.onChangeInput}/>
-          <Form.Input fluid label='Адрес изображение' placeholder='' name="image" 
-          type="text" value={this.state.image} onChange={this.onChangeInput}/>
-        </Form.Group>
-        <Form.TextArea label='Краткое описание' placeholder='' rows='2' name="title" 
-          type="text" value={this.state.title} onChange={this.onChangeInput}/>
-        <Form.TextArea label='Полное описание' placeholder='' 
-          name="description" rows='5'
-          type="text" value={this.state.description} onChange={this.onChangeInput}/>  
-        <Form.TextArea label='Инструкция' placeholder='' 
-          name="instruction" rows='5'
-          type="text" value={this.state.instruction} onChange={this.onChangeInput}/>
-        <Form.Button type='submit'>Отправить</Form.Button>
-        </Form>*/
-
-  )
-}
 
   export default  AdminPage;
-

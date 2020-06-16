@@ -41,13 +41,13 @@ class Registration extends React.Component {
           <Form.Input fluid label='Пароль' placeholder='Введите пароль' 
           name="password" 
           type="text" value={this.state.password} onChange={this.onChangeInput}/>
-          <Form.Input fluid label='Имя' placeholder='Введите своё имя' name="fullname" 
+          </Form.Group><Form.Group widths='equal'><Form.Input fluid label='Имя' placeholder='Введите своё имя' name="fullname" 
           type="text" value={this.state.fullname} onChange={this.onChangeInput}/>        
           <Form.Input fluid label='Електронная почта' placeholder='Напишите свою почту, через которую с вами будут поддерживать связь' 
           name="email" type="email" value={this.state.email} onChange={this.onChangeInput}/>        
           <Form.Input fluid label='Телефон' placeholder='Введите номер своего телефона' name="phone" 
           type="text" value={this.state.phone} onChange={this.onChangeInput}/>        
-          <Form.Input fluid label='Город' placeholder='Введите свой город' 
+          </Form.Group><Form.Group widths='equal'><Form.Input fluid label='Город' placeholder='Введите свой город' 
           name="city" 
           type="text" value={this.state.city} onChange={this.onChangeInput}/>         
           <Form.Input fluid label='Адресс' placeholder='Введите предположительное место доставки' name="addres" 
