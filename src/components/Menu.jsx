@@ -43,11 +43,12 @@ class LoginForm extends React.Component {
         event.preventDefault();
         return ;
       }
-      axios.post('http://localhost:3001/authorization.php', {...state}).then(({data}) => {
-      let {login,password,full_name,email,phone,city,address} = {...data};
+      axios.post('http://localhost:3000/authorization', {...state}).then(({data}) => {
+      console.log(data);
+      let {login,password,fullname,email,phone,city,address} = {...data};
       login = data.login;
       const logIn = this.props.logIn;
-      logIn({login: login, password: password,fullname: full_name, city: city, address: address, email: email, phone: phone});
+      logIn({login: login, password: password,fullname: fullname, city: city, address: address, email: email, phone: phone});
       });
       event.preventDefault();      
     }

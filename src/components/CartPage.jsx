@@ -34,7 +34,7 @@ class LoginForm extends React.Component {
       if (this.state.FIO === '' || this.state.city === '' || this.state.address === '' || this.state.email === '' || this.state.phone === '' ) {
         alert("Введите все данные");event.preventDefault();return ;
       }
-     axios.post('http://localhost:3001/addOrder.php', {...state,totalPrice, games}).then(({data}) => {
+     axios.post('http://localhost:3000/addOrder', {...state,totalPrice, games}).then(({data}) => {
       if (data === "Succes") {alert("Ваш заказ добавлен в очередь");}
       else  {alert("Произошла ошибка, попробуйте позже или обратитесь в техподдержку")}
       });

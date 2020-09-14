@@ -16,7 +16,7 @@ class Request extends React.Component {
         event.preventDefault();
         return ;
       }
-      axios.post('http://localhost:3001/request.php', {...state}).then(({data}) => {
+      axios.post('http://localhost:3000/message', {...state}).then(({data}) => {
       if (data === "Succes") {alert("Ваше сообщение доставлено");}
       else  {alert("Произошла ошибка, попробуйте позже или обратитесь в техподдержку")}
       });

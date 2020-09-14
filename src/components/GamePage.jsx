@@ -17,8 +17,9 @@ class GamePage extends React.Component {
     }
   }
 	UNSAFE_componentWillMount() {
-		axios.get('http://localhost:3001?id='+this.props.match.params.gameId).then(({data}) => {
-    	this.setState({...data});
+		let gameid = this.props.match.params.gameId;
+		axios.post('http://localhost:3000/game',{id:gameid}).then(({data}) => {
+    	this.setState({...data[0]});
 		});
 	}
 

@@ -8,7 +8,7 @@ import Registration from '../components/Registration.jsx';
 import Request from '../components/Request.jsx';
 import About from '../components/About.jsx';
 import Account from '../containers/Account.js';
-import AdminPage from '../admin/AdminPage.jsx';
+import AdminPage from '../admin/containers/AdminPage.js';
 
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
 import '../App.css';

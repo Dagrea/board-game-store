@@ -24,8 +24,8 @@ class Account extends React.Component {
         event.preventDefault();
         return ;
       }
-      let state=this.state;
-      axios.post('http://localhost:3001/accounchanges.php', {...state}).then(({data}) => {
+      let state=this.state;       
+      axios.post('http://localhost:3000/accountchanges', {...state}).then(({data}) => {
       if (data === "Succes") {alert("Вы успешно изменили свои данные");}
       else  {alert("Произошла ошибка, попробуйте позже или обратитесь в техподдержку")}
       });

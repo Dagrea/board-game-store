@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { Menu, Button, Form} from 'semantic-ui-react';
-import AddPage from '../admin/AddPage.jsx';
-import GameListPage from '../admin/GameListPage.jsx';
-import OrderListPage from '../admin/OrderListPage.jsx';
+import AddPage from './AddPage.jsx';
+import GameListPage from './GameListPage.jsx';
+import OrderListPage from './OrderListPage.jsx';
 
   class AdminPage extends React.Component {
   constructor(props) {
@@ -15,6 +15,11 @@ import OrderListPage from '../admin/OrderListPage.jsx';
     }
     UNSAFE_componentWillMount() {
       window.scrollTo(0, 1);
+      const req = "help me";
+      const {setGames} = this.props;
+      axios.post('http://localhost:3000/gamelist', {req}).then(({data}) => {
+      setGames(data); 
+      });
     }
     handleClick (e, { name }) { 
       this.setState({ page: name })
@@ -29,6 +34,7 @@ import OrderListPage from '../admin/OrderListPage.jsx';
       this.setState({[name]: event.target.value});
     }
     render() {
+      console.log(this.state);
       const authorized = this.state.authorized;
       return (
         authorized === false ? <div className='myContainer'>

@@ -18,7 +18,7 @@ class AddPage extends React.Component {
         event.preventDefault();
         return ;
       }
-      axios.post('http://localhost:3001/addgame.php', {...state}).then(({data}) => {
+      axios.post('http://localhost:3000/addgame', {...state}).then(({data}) => {
       if (data === "Succes") {alert("Товар добавлен");}
       else  {alert("Произошла ошибка")}
       });
