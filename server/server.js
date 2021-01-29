@@ -10,7 +10,8 @@ http.createServer(function(request, response){
             filePath = __dirname+"/../build/"+request.url.substr(1);
         }
         fs.readFile(filePath, function(error, data){            
-            if(error){       
+            if(error){     
+            console.log(filePath);  
                 response.statusCode = 404;
                 response.end("Resourse not found!");
             }   
