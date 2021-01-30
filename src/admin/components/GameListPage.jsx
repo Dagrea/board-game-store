@@ -8,7 +8,7 @@ import { Menu, Button, Form} from 'semantic-ui-react';
       this.state = {games:false}
     }
   UNSAFE_componentWillMount() {
-    axios.get('http://localhost:3001/productlist.php').then(({data}) => {
+    axios.get('http://localhost:3000/productlist').then(({data}) => {
       this.setState({games: data});
     });
   }

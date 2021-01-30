@@ -11,7 +11,6 @@ http.createServer(function(request, response){
         }
         fs.readFile(filePath, function(error, data){            
             if(error){     
-            console.log(filePath);  
                 response.statusCode = 404;
                 response.end("Resourse not found!");
             }   
@@ -25,7 +24,7 @@ http.createServer(function(request, response){
             case 'gamelist':
                 MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
                     var db = client.db('playmaker');
-                    db.collection('games').find().toArray().then(data => {
+                    db.collection('game').find().toArray().then(data => {
                         response.end(JSON.stringify(data));
                         client.close();
                     })
@@ -118,8 +117,23 @@ http.createServer(function(request, response){
                         client.close();
                     });
                     });});break;
+            case 'addgame':
+                var body = '';
+                request.on('data', function(data) {
+                    body += data;
+                    body = JSON.parse(body);
+                    MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
+                        if(err) {console.log(err);response.end(err);}
+                        var db = client.db('playmaker');
+                        db.collection('game').insertOne({
+                        "name": body.name, "price": body.price, "image": body.image,
+                        "title": body.title, "description": body.description, "instruction": body.instruction}).then(data => {
+                        response.end("Succes");                        
+                        client.close();
+                    });
+                    });});break;
             default:
-                console.log('post another shit | '+request.body);
+                console.log('post another | '+request.body);
         }
         
     };
