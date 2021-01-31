@@ -8,7 +8,7 @@ class App extends React.Component {
 	UNSAFE_componentWillMount() {
 		window.scrollTo(0, 1);
 		const {setGames} = this.props;
-		const req = "help me";
+		const req = "help";
 		axios.post('http://localhost:3000/gamelist', {req}).then(({data}) => {
 			setGames(data);	
 		});

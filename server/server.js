@@ -1,5 +1,6 @@
 const http = require("http");
 const fs = require("fs");
+const {ObjectId} = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 const gamelist = require('./dbfunctions/gamelist.js');
 
@@ -36,7 +37,7 @@ http.createServer(function(request, response){
                 body = body.slice(0,-2).substr(7);
                 MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
                     var db = client.db('playmaker');
-                    db.collection('games').find({"product_id":body}).toArray().then(data => {
+                    db.collection('game').find({"product_id":body}).toArray().then(data => {
                         response.end(JSON.stringify(data));
                         client.close();
                     })
@@ -49,7 +50,7 @@ http.createServer(function(request, response){
                     MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
                         if(err) {console.log(err);response.end(err);}
                         var db = client.db('playmaker');
-                        db.collection('users').insertOne({"login": body.login,
+                        db.collection('user').insertOne({"login": body.login,
                         "password": body.password,"fullname": body.fullname,"email": body.email,
                         "phone": body.phone, "city": body.city, "address": body.address}).then(data => {
                         response.end("Succes");
@@ -64,7 +65,7 @@ http.createServer(function(request, response){
                     MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
                         if(err) {console.log(err);response.end(err);}
                         var db = client.db('playmaker');
-                        db.collection('users').findOne({"login": body.login,
+                        db.collection('user').findOne({"login": body.login,
                         "password": body.password}).then(data => {
                         response.end(JSON.stringify(data));
                         client.close();
@@ -75,11 +76,10 @@ http.createServer(function(request, response){
                 request.on('data', function(data) {
                     body += data;
                     body = JSON.parse(body);
-                    console.log(body);
                     MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
                         if(err) {console.log(err);response.end(err);}
                         var db = client.db('playmaker');
-                        db.collection('users').updateOne({"login": body.login}, {$set: 
+                        db.collection('user').updateOne({"login": body.login}, {$set: 
                         {"password": body.password,"fullname": body.fullname,
                         "email": body.email, "phone": body.phone, "city": body.city, 
                         "address": body.address}}).then(data => {response.end("Succes");
@@ -94,7 +94,7 @@ http.createServer(function(request, response){
                     MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
                         if(err) {console.log(err);response.end(err);}
                         var db = client.db('playmaker');
-                        db.collection('orders').insertOne({"order_status": "new",
+                        db.collection('order').insertOne({"order_status": "new",
                         "date": formatDate(new Date()),"full_price": body.full_price,
                         "full_name": body.FIO, "city": body.city, "address": body.address,
                         "email": body.email, "phone": body.phone, "goods": body.games}).then(data => {
@@ -110,7 +110,7 @@ http.createServer(function(request, response){
                     MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
                         if(err) {console.log(err);response.end(err);}
                         var db = client.db('playmaker');
-                        db.collection('messages').insertOne({"fullname": body.fullname,
+                        db.collection('message').insertOne({"fullname": body.fullname,
                             "email": body.email, "theme": body.theme, "message": body.message
                         }).then(data => {
                         response.end("Succes");                        
@@ -131,6 +131,35 @@ http.createServer(function(request, response){
                         response.end("Succes");                        
                         client.close();
                     });
+                    });});break;
+            case 'updategames':
+                var body = '';
+                request.on('data', function(data) {
+                    body += data;
+                    body = JSON.parse(body);
+                    MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
+                        if(err) {console.log(err);response.end(err);}
+                        var db = client.db('playmaker');
+                        console.log(body);
+                        db.collection('game').updateOne({"_id": body._id}, {$set: 
+                        {"name": body.name,"price": body.price,
+                        "image": body.image, "title": body.title, "description": body.description, 
+                        "instruction": body.instruction}}).then(data => {response.end("Succes");
+                        client.close();
+                    })
+                    });});break;
+            case 'deletegame':
+                var body = '';
+                request.on('data', function(data) {
+                    body += data;
+                    body = JSON.parse(body);
+                    MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
+                        if(err) {console.log(err);response.end(err);}
+                        var db = client.db('playmaker');
+                        console.log(body.req, ObjectId(body.req).toString() );
+                        db.collection('game').deleteOne( { "_id" : ObjectId(body.req) }).then(data => {response.end("Succes");
+                        client.close();
+                    })
                     });});break;
             default:
                 console.log('post another | '+request.body);

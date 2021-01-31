@@ -8,20 +8,15 @@ import { Menu, Button, Form} from 'semantic-ui-react';
       this.state = {games:false}
     }
   UNSAFE_componentWillMount() {
-    axios.get('http://localhost:3000/productlist').then(({data}) => {
+    const req = "help";
+    axios.post('http://localhost:3000/gamelist', {req}).then(({data}) => {
       this.setState({games: data});
     });
-  }
-  onDataChange(game) {
-
-  };
-  onGameDelete() {
-
   }
   render () { 
   const games = this.state.games;  
     return (
-    games === false ? <div className='myContainer'>Загрузка</div> :
+    games == false ? <div className='myContainer'>Загрузка</div> :
     (<div><hr/>
       {
         games.map((game,index) => (
@@ -31,34 +26,54 @@ import { Menu, Button, Form} from 'semantic-ui-react';
     </div>) 
     )
   }
-}
+  }
+
 class GamePageInList extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {games:false};
-      
+      this.state = {game:false};
+      this.state = {_id: '', name: '', price: '',image: '', title: '',description: '', instruction: ''};
+      this.onChangeInput = this.onChangeInput.bind(this);
+      this.onDataChange = this.onDataChange.bind(this);
+      this.onGameDelete = this.onGameDelete.bind(this);
     }
+
+  onChangeInput(event) {
+      const name = event.target.name;
+      this.setState({[name]: event.target.value});
+    }
+  onDataChange() {
+    const req = this.state;
+    axios.post('http://localhost:3000/updategames', {req})
+  };
+  onGameDelete() {
+    const req = this.props._id;
+    axios.post('http://localhost:3000/deletegame', {req})
+  }
+
   render () { 
-  const {title, name, price, id,amount,  image, description, instruction } = this.props;
+  const { _id, title, name, price, image, description, instruction } = this.props;
   return (
     <div className="AdminPageConteiner">
-    <div className='myInline adminGamePage'><label>Название<br/><textarea name="name" rows="1" cols="45" type="text"
+    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Название<br/><textarea name="name" rows="1" cols="45" type="text"
       value={name}/></label><br/></div>
-    <div className='myInline adminGamePage'><label>Цена<br/><textarea name="price" rows="1" cols="45" type="text"
+    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Цена<br/><textarea name="price" rows="1" cols="45" type="text"
       value={price} /></label><br/></div>
-    <div className='myInline adminGamePage'><label>Адрес изображения<br/><textarea name="image" rows="2" cols="60" type="text"
+    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Адрес изображения<br/><textarea name="image" rows="2" cols="60" type="text"
       value={image} /></label><br/></div>
-    <div className='myInline adminGamePage'><label>Краткое описание<br/><textarea name="title" rows="3" cols="60" type="text"
+    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Краткое описание<br/><textarea name="title" rows="3" cols="60" type="text"
       value={title} /></label><br/></div>
-    <div className='myInline adminGamePage'><label>Полное описание<br/><textarea name="description" rows="10" cols="60" type="text"
+    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Полное описание<br/><textarea name="description" rows="10" cols="60" type="text"
       value={description} /></label><br/></div>
-    <div className='myInline adminGamePage'><label>Инструкция<br/><textarea name="instruction" rows="10" cols="60" type="text"
-      value={instruction} /></label><br/></div><br/><hr/><br/>
+    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Инструкция<br/><textarea name="instruction" rows="10" cols="60" type="text"
+      value={instruction} /></label><br/></div>
+    <Button onClick={this.onDataChange} >Сохранить изменения</Button>
+    <Button onClick={this.onGameDelete} >Удалить товар</Button>
+    <br/><hr/><br/>
     </div>
 
     /*Батоны в начало
-    <Button>Сохранить изменения</Button>
-    <Button>Удалить товар</Button><br/>*/
+    <br/>*/
    /* <Form onSubmit={this.onSubmit}>
         <Form.Group widths='equal'>
           <Form.Input fluid label='Название товара' placeholder='' name="name" 
