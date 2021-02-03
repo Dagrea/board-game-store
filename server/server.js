@@ -141,7 +141,7 @@ http.createServer(function(request, response){
                         if(err) {console.log(err);response.end(err);}
                         var db = client.db('playmaker');
                         console.log(body);
-                        db.collection('game').updateOne({"_id": body._id}, {$set: 
+                        db.collection('game').updateOne({"_id": ObjectId(body._id)}, {$set: 
                         {"name": body.name,"price": body.price,
                         "image": body.image, "title": body.title, "description": body.description, 
                         "instruction": body.instruction}}).then(data => {response.end("Succes");
@@ -156,7 +156,6 @@ http.createServer(function(request, response){
                     MongoClient.connect('mongodb://localhost:27017',{useNewUrlParser: true, useUnifiedTopology: true},(err, client) => {
                         if(err) {console.log(err);response.end(err);}
                         var db = client.db('playmaker');
-                        console.log(body.req, ObjectId(body.req).toString() );
                         db.collection('game').deleteOne( { "_id" : ObjectId(body.req) }).then(data => {response.end("Succes");
                         client.close();
                     })

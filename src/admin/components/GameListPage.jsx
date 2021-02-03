@@ -8,7 +8,7 @@ import { Menu, Button, Form} from 'semantic-ui-react';
       this.state = {games:false}
     }
   UNSAFE_componentWillMount() {
-    const req = "help";
+    const req = "cap";
     axios.post('http://localhost:3000/gamelist', {req}).then(({data}) => {
       this.setState({games: data});
     });
@@ -34,47 +34,39 @@ class GamePageInList extends React.Component {
       this.state = {game:false};
       this.state = {_id: '', name: '', price: '',image: '', title: '',description: '', instruction: ''};
       this.onChangeInput = this.onChangeInput.bind(this);
-      this.onDataChange = this.onDataChange.bind(this);
       this.onGameDelete = this.onGameDelete.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
     }
-
+  UNSAFE_componentWillMount() {
+    this.setState(this.props);
+  }
+  onSubmit(event){
+      let state=this.state;
+      if (this.state.name === '' || this.state.price === '' || 
+          this.state.image === '' || this.state.description === '' || 
+          this.state.instruction === '') {
+        alert("Введите все данные");
+        event.preventDefault();
+        return ;
+      }
+      axios.post('http://localhost:3000/updategames', {...state}).then(({data}) => {
+      if (data === "Succes") {alert("Информация обновлена");}
+      else  {alert("Произошла ошибка")}
+      });
+      event.preventDefault();      
+    }
   onChangeInput(event) {
       const name = event.target.name;
       this.setState({[name]: event.target.value});
     }
-  onDataChange() {
-    const req = this.state;
-    axios.post('http://localhost:3000/updategames', {req})
-  };
   onGameDelete() {
     const req = this.props._id;
     axios.post('http://localhost:3000/deletegame', {req})
   }
-
   render () { 
-  const { _id, title, name, price, image, description, instruction } = this.props;
   return (
     <div className="AdminPageConteiner">
-    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Название<br/><textarea name="name" rows="1" cols="45" type="text"
-      value={name}/></label><br/></div>
-    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Цена<br/><textarea name="price" rows="1" cols="45" type="text"
-      value={price} /></label><br/></div>
-    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Адрес изображения<br/><textarea name="image" rows="2" cols="60" type="text"
-      value={image} /></label><br/></div>
-    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Краткое описание<br/><textarea name="title" rows="3" cols="60" type="text"
-      value={title} /></label><br/></div>
-    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Полное описание<br/><textarea name="description" rows="10" cols="60" type="text"
-      value={description} /></label><br/></div>
-    <div className='myInline adminGamePage' onChange={this.onChangeInput}><label>Инструкция<br/><textarea name="instruction" rows="10" cols="60" type="text"
-      value={instruction} /></label><br/></div>
-    <Button onClick={this.onDataChange} >Сохранить изменения</Button>
-    <Button onClick={this.onGameDelete} >Удалить товар</Button>
-    <br/><hr/><br/>
-    </div>
-
-    /*Батоны в начало
-    <br/>*/
-   /* <Form onSubmit={this.onSubmit}>
+    <Form onSubmit={this.onSubmit}>
         <Form.Group widths='equal'>
           <Form.Input fluid label='Название товара' placeholder='' name="name" 
           type="text" value={this.state.name} onChange={this.onChangeInput}/>
@@ -91,8 +83,13 @@ class GamePageInList extends React.Component {
         <Form.TextArea label='Инструкция' placeholder='' 
           name="instruction" rows='5'
           type="text" value={this.state.instruction} onChange={this.onChangeInput}/>
-        <Form.Button type='submit'>Отправить</Form.Button>
-        </Form>*/
+        <Form.Button type='submit'>Сохранить изменения</Form.Button>
+        <Form.Button type='button' onClick={this.onGameDelete} >Удалить товар</Form.Button>
+        </Form>
+    <br/><hr/><br/>
+    </div>
+    
+   
     )
   }
 }
